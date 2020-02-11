@@ -7,12 +7,15 @@ import { Container } from '../../styles/GlobalStyles';
 import { Form, Title } from './styled';
 import axios from '../../services/axios';
 
+import Loading from '../../components/Loading';
+
 import history from '../../services/history';
 
 export default function Register() {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -30,7 +33,7 @@ export default function Register() {
       toast.error('Senha precisa ter entre 6 e 50 caracteres');
     }
     if (formErrors) return;
-
+    setIsLoading(true);
     try {
       await axios.post('/users', {
         nome,
@@ -38,15 +41,18 @@ export default function Register() {
         email,
       });
       toast.success('Você fez seu cadastro');
+      setIsLoading(false);
       history.push('/login');
     } catch (err) {
       const errors = get(err, 'response.data.errors');
       errors.map(error => toast.error(error));
+      setIsLoading(false);
     }
   }
 
   return (
     <Container>
+      <Loading isLoading={isLoading} />
       <Title>REGISTRO</Title>
       <Form onSubmit={handleSubmit}>
         <label htmlFor="nome">

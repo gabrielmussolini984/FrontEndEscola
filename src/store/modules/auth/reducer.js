@@ -14,11 +14,13 @@ export default function(state = initialState, action) {
       newState.isLoggedIn = true;
       newState.tokken = action.payload.token;
       newState.user = action.payload.user;
+      newState.isLoading = false;
       return newState;
     }
     case types.LOGIN_REQUEST: {
-      console.log('Reducer ', action);
-      return state;
+      const newState = { ...initialState };
+      newState.isLoading = true;
+      return newState;
     }
     case types.LOGIN_FAILURE: {
       const newState = { ...initialState };
