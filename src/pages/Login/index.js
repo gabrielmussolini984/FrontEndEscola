@@ -39,7 +39,7 @@ export default function Login(props) {
   return (
     <Container>
       <Loading isLoading={isLoading} />
-      <Title>LOGIN</Title>
+      <Title>Login</Title>
       <Form onSubmit={handleSubmit}>
         <input
           type="text"
