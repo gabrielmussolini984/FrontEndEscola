@@ -1,5 +1,5 @@
 import axios from 'axios';
 
 export default axios.create({
-  baseURL: 'http://34.95.201.84',
+  baseURL: 'https://apiescola.gabrielmussolini.com.br',
 });
